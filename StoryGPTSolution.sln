@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryGPTEntityAPI", "StoryGPTEntityAPI\StoryGPTEntityAPI.csproj", "{7E85D173-0A9E-4C14-A543-68DDEF2A91DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryGPTWebAPI", "StoryGPTWebAPI\StoryGPTWebAPI.csproj", "{7703CD78-ED33-45A9-BF42-AA0895F7E6CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryGPTEntityAPITest", "StoryGPTEntityAPITest\StoryGPTEntityAPITest.csproj", "{6B342C27-7AC6-41FC-A933-4692E74C729F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryGPTWebAPITest", "StoryGPTWebAPITest\StoryGPTWebAPITest.csproj", "{C555F82A-BE3F-4395-8DCC-4DB98588FFAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E85D173-0A9E-4C14-A543-68DDEF2A91DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E85D173-0A9E-4C14-A543-68DDEF2A91DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E85D173-0A9E-4C14-A543-68DDEF2A91DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E85D173-0A9E-4C14-A543-68DDEF2A91DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7703CD78-ED33-45A9-BF42-AA0895F7E6CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7703CD78-ED33-45A9-BF42-AA0895F7E6CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7703CD78-ED33-45A9-BF42-AA0895F7E6CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7703CD78-ED33-45A9-BF42-AA0895F7E6CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B342C27-7AC6-41FC-A933-4692E74C729F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B342C27-7AC6-41FC-A933-4692E74C729F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B342C27-7AC6-41FC-A933-4692E74C729F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B342C27-7AC6-41FC-A933-4692E74C729F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C555F82A-BE3F-4395-8DCC-4DB98588FFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C555F82A-BE3F-4395-8DCC-4DB98588FFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C555F82A-BE3F-4395-8DCC-4DB98588FFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C555F82A-BE3F-4395-8DCC-4DB98588FFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
