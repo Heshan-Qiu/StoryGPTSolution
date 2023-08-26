@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddCors(options =>
 {
@@ -35,6 +36,6 @@ app.MapGet("/story", () =>
 app.MapPost("/story", (string prompt) =>
 {
     return "Hello World!";
-}).WithName("PostStory");
+}).WithName("AddStory");
 
 app.Run();
