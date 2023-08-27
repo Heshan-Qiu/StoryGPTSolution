@@ -1,10 +1,15 @@
+using StoryGPTEntityAPI.Data;
+using StoryGPTEntityAPI.Dtos;
+using StoryGPTEntityAPI.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+builder.Services.AddDbContext<StoryGPTContext>();
 
 builder.Services.AddCors(options =>
 {
@@ -33,7 +38,7 @@ app.MapGet("/story", () =>
     return "Hello World!";
 }).WithName("GetStory");
 
-app.MapPost("/story", (string prompt) =>
+app.MapPost("/story", (StoryDTO story) =>
 {
     return "Hello World!";
 }).WithName("AddStory");

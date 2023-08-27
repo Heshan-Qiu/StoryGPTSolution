@@ -1,4 +1,4 @@
-namespace StoriesGPTEntities.Models
+namespace StoryGPTEntityAPI.Models
 {
     public class Tag
     {

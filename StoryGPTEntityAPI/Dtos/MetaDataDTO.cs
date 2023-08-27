@@ -1,14 +1,15 @@
-namespace StoryGPTEntityAPI.Models
+using AutoMapper;
+using StoryGPTEntityAPI.Models;
+
+namespace StoryGPTEntityAPI.Dtos
 {
-    public class MetaData
+    public class MetaDataDTO
     {
         public int Id { get; set; }
-        public int GeneratedId { get; set; }
         public int StoryId { get; set; }
         public DateTime DateCreated { get; set; }
         public string Author { get; set; } = null!;
         public string Model { get; set; } = null!;
         public string Prompt { get; set; } = null!;
-        public ICollection<Tag> Tags { get; set; } = null!;
     }
 }

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace StoriesGPTEntities.Data
+namespace StoryGPTEntityAPI.Data
 {
-    public class StoriesGPTContext : DbContext
+    public class StoryGPTContext : DbContext
     {
         public DbSet<Models.Story> Story { get; set; } = null!;
         public DbSet<Models.MetaData> MetaData { get; set; } = null!;
