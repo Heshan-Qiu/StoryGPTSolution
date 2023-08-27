@@ -1,9 +1,9 @@
 using AutoMapper;
+using IdGen;
 using StoryGPTEntityAPI.Data;
 using StoryGPTEntityAPI.Dtos;
 using StoryGPTEntityAPI.Helpers;
 using StoryGPTEntityAPI.Models;
-using StoryGPTEntityAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,13 +39,16 @@ app.UseCors("AllowAll");
 
 app.MapGet("/api/story", (StoryGPTDbContext context, IMapper mapper, long id) =>
 {
-    var story = StoryServiceImplement.Instance.GetStoryById(context, id);
+    var story = context.Story.FirstOrDefault(s => s.Id == id);
     return Results.Ok(mapper.Map<StoryDTO>(story));
 }).WithName("GetStory");
 
 app.MapPost("/api/story", async (StoryGPTDbContext context, IMapper mapper, StoryDTO story) =>
 {
-    long id = await StoryServiceImplement.Instance.CreateStoryAsync(context, mapper.Map<Story>(story));
+    long id = new IdGenerator(0).CreateId();
+    story.Id = id;
+    await context.Story.AddAsync(mapper.Map<Story>(story));
+    await context.SaveChangesAsync();
     return Results.Ok(new { Id = id });
 }).WithName("CreateStory");
 
