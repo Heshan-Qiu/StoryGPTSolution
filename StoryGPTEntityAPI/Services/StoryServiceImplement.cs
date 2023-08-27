@@ -1,29 +1,50 @@
 using AutoMapper;
+using IdGen;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using StoryGPTEntityAPI.Data;
 using StoryGPTEntityAPI.Dtos;
 using StoryGPTEntityAPI.Models;
 
 namespace StoryGPTEntityAPI.Services
 {
-    public class StoryServiceImplement : IStoryService
+    public sealed class StoryServiceImplement : IStoryService
     {
-        private readonly StoryGPTContext _context;
-        private readonly IMapper _mapper;
+        private static StoryServiceImplement? instance = null;
+        private static readonly object padlock = new object();
 
-        public StoryServiceImplement(StoryGPTContext context, IMapper mapper)
+        private StoryServiceImplement()
         {
-            _context = context;
-            _mapper = mapper;
+            // Private constructor to prevent instantiation from outside
         }
 
-        public void CreateStory(StoryDTO story)
+        public static StoryServiceImplement Instance
         {
-            _context.Story.Add(_mapper.Map<Story>(story));
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new StoryServiceImplement();
+                    }
+                    return instance;
+                }
+            }
+        }
+
+        public async Task<long> CreateStoryAsync(StoryGPTDbContext context, IMapper mapper, Story story)
+        {
+            story.GeneratedId = new IdGenerator(0).CreateId();
+            context.Story.Add(story);
+            await context.SaveChangesAsync();
+            return story.GeneratedId;
         }
 
         public StoryDTO GetStoryById(int id)
         {
-            return _mapper.Map<StoryDTO>(_context.Story.FirstOrDefault(s => s.GeneratedId == id));
+            throw new System.NotImplementedException();
+            // return _mapper.Map<StoryDTO>(_context.Story.FirstOrDefault(s => s.GeneratedId == id));
         }
     }
 }

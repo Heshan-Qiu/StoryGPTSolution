@@ -1,6 +1,9 @@
+using AutoMapper;
 using StoryGPTEntityAPI.Data;
 using StoryGPTEntityAPI.Dtos;
 using StoryGPTEntityAPI.Helpers;
+using StoryGPTEntityAPI.Models;
+using StoryGPTEntityAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<StoryGPTDbContext>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
-builder.Services.AddDbContext<StoryGPTContext>();
 
 builder.Services.AddCors(options =>
 {
@@ -33,14 +36,15 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-app.MapGet("/story", () =>
+app.MapGet("/api/story", () =>
 {
     return "Hello World!";
 }).WithName("GetStory");
 
-app.MapPost("/story", (StoryDTO story) =>
+app.MapPost("/api/story", async (StoryGPTDbContext context, IMapper mapper, StoryDTO story) =>
 {
-    return "Hello World!";
-}).WithName("AddStory");
+    long id = await StoryServiceImplement.Instance.CreateStoryAsync(context, mapper, mapper.Map<Story>(story));
+    return Results.Ok(new { Id = id });
+}).WithName("CreateStory");
 
 app.Run();

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StoryGPTEntityAPI.Data
 {
-    public class StoryGPTContext : DbContext
+    public class StoryGPTDbContext : DbContext
     {
         public DbSet<Models.Story> Story { get; set; } = null!;
         public DbSet<Models.MetaData> MetaData { get; set; } = null!;

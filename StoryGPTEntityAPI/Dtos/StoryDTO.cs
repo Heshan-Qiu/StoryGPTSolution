@@ -9,7 +9,7 @@ namespace StoryGPTEntityAPI.Dtos
 {
     public class StoryDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string StoryText { get; set; } = null!;
         public MetaDataDTO MetaData { get; set; } = null!;
     }
