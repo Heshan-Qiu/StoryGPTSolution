@@ -1,7 +1,5 @@
-using AutoMapper;
+using System.Text.Json;
 using IdGen;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using StoryGPTEntityAPI.Data;
 using StoryGPTEntityAPI.Dtos;
 using StoryGPTEntityAPI.Models;
@@ -33,7 +31,7 @@ namespace StoryGPTEntityAPI.Services
             }
         }
 
-        public async Task<long> CreateStoryAsync(StoryGPTDbContext context, IMapper mapper, Story story)
+        public async Task<long> CreateStoryAsync(StoryGPTDbContext context, Story story)
         {
             story.GeneratedId = new IdGenerator(0).CreateId();
             context.Story.Add(story);
@@ -41,10 +39,18 @@ namespace StoryGPTEntityAPI.Services
             return story.GeneratedId;
         }
 
-        public StoryDTO GetStoryById(int id)
+        public Story GetStoryById(StoryGPTDbContext context, long id)
         {
-            throw new System.NotImplementedException();
-            // return _mapper.Map<StoryDTO>(_context.Story.FirstOrDefault(s => s.GeneratedId == id));
+            var story = context.Story.FirstOrDefault(s => s.GeneratedId == id);
+            if (story == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            else
+            {
+                Console.WriteLine(JsonSerializer.Serialize(story));
+                return story;
+            }
         }
     }
 }

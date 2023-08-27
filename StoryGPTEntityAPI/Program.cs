@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<StoryGPTDbContext>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
@@ -36,14 +37,15 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-app.MapGet("/api/story", () =>
+app.MapGet("/api/story", (StoryGPTDbContext context, IMapper mapper, long id) =>
 {
-    return "Hello World!";
+    var story = StoryServiceImplement.Instance.GetStoryById(context, id);
+    return Results.Ok(mapper.Map<StoryDTO>(story));
 }).WithName("GetStory");
 
 app.MapPost("/api/story", async (StoryGPTDbContext context, IMapper mapper, StoryDTO story) =>
 {
-    long id = await StoryServiceImplement.Instance.CreateStoryAsync(context, mapper, mapper.Map<Story>(story));
+    long id = await StoryServiceImplement.Instance.CreateStoryAsync(context, mapper.Map<Story>(story));
     return Results.Ok(new { Id = id });
 }).WithName("CreateStory");
 
