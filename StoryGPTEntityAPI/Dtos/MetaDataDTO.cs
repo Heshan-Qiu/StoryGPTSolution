@@ -3,7 +3,7 @@ using StoryGPTEntityAPI.Models;
 
 namespace StoryGPTEntityAPI.Dtos
 {
-    public class MetaDataDTO
+    public class MetaDataDto
     {
         public long Id { get; set; }
         public long StoryId { get; set; }

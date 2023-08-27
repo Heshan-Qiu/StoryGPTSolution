@@ -1,16 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using StoryGPTEntityAPI.Models;
 
-namespace StoryGPTEntityAPI.Data
+namespace StoryGPTEntityAPI.Db
 {
     public class StoryGPTDbContext : DbContext
     {
         public DbSet<Story> Story { get; set; } = null!;
         public DbSet<MetaData> MetaData { get; set; } = null!;
 
+        public StoryGPTDbContext(DbContextOptions<StoryGPTDbContext> options) : base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=StoriesGPT.db");
+            optionsBuilder.UseInMemoryDatabase("StoryGPT");
         }
     }
 }

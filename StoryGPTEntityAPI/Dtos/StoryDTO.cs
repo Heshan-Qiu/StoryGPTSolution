@@ -7,10 +7,10 @@ using StoryGPTEntityAPI.Models;
 
 namespace StoryGPTEntityAPI.Dtos
 {
-    public class StoryDTO
+    public class StoryDto
     {
         public long Id { get; set; }
         public string StoryText { get; set; } = null!;
-        public MetaDataDTO MetaData { get; set; } = null!;
+        public MetaDataDto MetaData { get; set; } = null!;
     }
 }

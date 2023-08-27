@@ -8,13 +8,13 @@ namespace StoryGPTEntityAPI.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<StoryDTO, Story>()
+            CreateMap<StoryDto, Story>()
                 .ForMember(dest => dest.GeneratedId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
-            CreateMap<Story, StoryDTO>()
+            CreateMap<Story, StoryDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.GeneratedId));
-            CreateMap<MetaDataDTO, MetaData>();
-            CreateMap<MetaData, MetaDataDTO>();
+            CreateMap<MetaDataDto, MetaData>();
+            CreateMap<MetaData, MetaDataDto>();
         }
     }
 }

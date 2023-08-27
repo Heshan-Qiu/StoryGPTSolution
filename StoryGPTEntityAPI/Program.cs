@@ -1,6 +1,6 @@
 using AutoMapper;
 using IdGen;
-using StoryGPTEntityAPI.Data;
+using StoryGPTEntityAPI.Db;
 using StoryGPTEntityAPI.Dtos;
 using StoryGPTEntityAPI.Helpers;
 using StoryGPTEntityAPI.Models;
@@ -12,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<StoryGPTDbContext>();
+var connectionString = builder.Configuration.GetConnectionString("StoryGPT") ?? "Data Source=StoriesGPT.db";
+builder.Services.AddSqlite<StoryGPTDbContext>(connectionString);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
 builder.Services.AddCors(options =>
@@ -40,10 +41,10 @@ app.UseCors("AllowAll");
 app.MapGet("/api/story", (StoryGPTDbContext context, IMapper mapper, long id) =>
 {
     var story = context.Story.FirstOrDefault(s => s.Id == id);
-    return Results.Ok(mapper.Map<StoryDTO>(story));
+    return Results.Ok(mapper.Map<StoryDto>(story));
 }).WithName("GetStory");
 
-app.MapPost("/api/story", async (StoryGPTDbContext context, IMapper mapper, StoryDTO story) =>
+app.MapPost("/api/story", async (StoryGPTDbContext context, IMapper mapper, StoryDto story) =>
 {
     long id = new IdGenerator(0).CreateId();
     story.Id = id;
