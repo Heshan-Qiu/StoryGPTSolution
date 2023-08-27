@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryGPTEntityAPITest", "St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryGPTWebAPITest", "StoryGPTWebAPITest\StoryGPTWebAPITest.csproj", "{C1567F71-6ACA-4788-852F-BF25170AFDBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoryGPTProducer", "StoryGPTProducer\StoryGPTProducer.csproj", "{AB00C0E6-5C30-47FF-A475-AE99804AC64E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{C1567F71-6ACA-4788-852F-BF25170AFDBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1567F71-6ACA-4788-852F-BF25170AFDBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1567F71-6ACA-4788-852F-BF25170AFDBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB00C0E6-5C30-47FF-A475-AE99804AC64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB00C0E6-5C30-47FF-A475-AE99804AC64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB00C0E6-5C30-47FF-A475-AE99804AC64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB00C0E6-5C30-47FF-A475-AE99804AC64E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

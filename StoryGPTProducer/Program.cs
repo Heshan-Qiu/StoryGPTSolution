@@ -1,41 +1,37 @@
-﻿using System.Text;
-using System.Text.Json;
-using Azure;
-using Azure.AI.OpenAI;
+using StoryGPTProducer.Helpers;
+using StoryGPTProducer.Services;
 
-OpenAIClient aiClient = new OpenAIClient("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");
-string deploymentName = "text-davinci-003";
-string prompt = "Give me a short story.";
-string apiUrl = "https://localhost:7158/api/story";
+var builder = WebApplication.CreateBuilder(args);
 
-try
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddHostedService<AIBotService>();
+
+builder.Services.AddCors(options =>
 {
-    Response<Completions> aiResponse = await aiClient.GetCompletionsAsync(deploymentName, prompt);
-    string story = string.Concat(aiResponse.Value.Choices.Select(c => c.Text));
-    Console.WriteLine(story);
-
-    using var httpClient = new HttpClient();
-    string jsonData = JsonSerializer.Serialize(new Story(story, new MetaData("OpenAI", deploymentName, prompt, DateTime.Now)));
-
-    // Create the HTTP content with JSON data
-    HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-    HttpResponseMessage httpResponse = await httpClient.PostAsync(apiUrl, content);
-
-    if (httpResponse.IsSuccessStatusCode)
+    options.AddPolicy("AllowAll", builder =>
     {
-        string responseContent = await httpResponse.Content.ReadAsStringAsync();
-        Console.WriteLine(responseContent);
-    }
-    else
-    {
-        Console.WriteLine($"Error: {httpResponse.StatusCode}");
-    }
-}
-catch (Exception ex)
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
+    });
+});
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    Console.WriteLine(ex.Message);
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-record MetaData(string Author, string Model, string Prompt, DateTime DateCreated);
-record Story(string StoryText, MetaData MetaData);
+app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+
+app.MapGet("/", () => "Hello World!");
+
+app.Run();

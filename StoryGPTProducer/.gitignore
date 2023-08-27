@@ -1,1 +1,3 @@
-.vscode
+.vscode/
+appsettings.json
+appsettings.Development.json
