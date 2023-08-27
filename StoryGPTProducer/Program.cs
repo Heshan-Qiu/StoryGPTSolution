@@ -22,11 +22,18 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.Logger.LogInformation("Starting up");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.Logger.LogInformation("In Development environment");
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    app.Logger.LogInformation("In Production environment");
 }
 
 app.UseHttpsRedirection();
