@@ -32,11 +32,11 @@ namespace StoryGPTProducer.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    StoryId = table.Column<long>(type: "bigint", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Author = table.Column<string>(type: "text", nullable: false),
                     Model = table.Column<string>(type: "text", nullable: false),
-                    Prompt = table.Column<string>(type: "text", nullable: false)
+                    Prompt = table.Column<string>(type: "text", nullable: false),
+                    StoryId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {

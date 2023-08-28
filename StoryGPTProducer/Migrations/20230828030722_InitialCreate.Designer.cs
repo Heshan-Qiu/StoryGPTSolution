@@ -12,7 +12,7 @@ using StoryGPTProducer.Helpers;
 namespace StoryGPTProducer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230827102909_InitialCreate")]
+    [Migration("20230828030722_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -81,11 +81,13 @@ namespace StoryGPTProducer.Migrations
 
             modelBuilder.Entity("StoryGPTProducer.Models.MetaData", b =>
                 {
-                    b.HasOne("StoryGPTProducer.Models.Story", null)
+                    b.HasOne("StoryGPTProducer.Models.Story", "Story")
                         .WithOne("MetaData")
                         .HasForeignKey("StoryGPTProducer.Models.MetaData", "StoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Story");
                 });
 
             modelBuilder.Entity("StoryGPTProducer.Models.Story", b =>

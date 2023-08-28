@@ -1,3 +1,5 @@
+using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using StoryGPTProducer.Helpers;
 using StoryGPTProducer.Services;
 
@@ -8,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddHostedService<AIBotService>();
 
 builder.Services.AddCors(options =>
@@ -39,6 +42,12 @@ else
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", (DatabaseContext context) =>
+{
+    return context.Stories.Include(s => s.MetaData).OrderByDescending(s => s.Id).Take(10)
+        .Select(s => new StoryContext(s.StoryText, s.MetaData.DateCreated)).ToArray();
+});
 
 app.Run();
+
+record StoryContext(string Context, DateTime DateCreated);

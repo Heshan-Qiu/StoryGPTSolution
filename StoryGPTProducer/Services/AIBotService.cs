@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Azure.AI.OpenAI;
-using Microsoft.EntityFrameworkCore;
-using StoryGPTProducer.Models;
-using StoryGPTProducer.Helpers;
-using IdGen;
 using System.Text.Json;
+using Azure.AI.OpenAI;
+using IdGen;
+using Microsoft.EntityFrameworkCore;
+using StoryGPTProducer.Helpers;
+using StoryGPTProducer.Models;
 
 namespace StoryGPTProducer.Services
 {

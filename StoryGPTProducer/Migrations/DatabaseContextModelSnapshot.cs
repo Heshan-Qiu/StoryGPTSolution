@@ -78,11 +78,13 @@ namespace StoryGPTProducer.Migrations
 
             modelBuilder.Entity("StoryGPTProducer.Models.MetaData", b =>
                 {
-                    b.HasOne("StoryGPTProducer.Models.Story", null)
+                    b.HasOne("StoryGPTProducer.Models.Story", "Story")
                         .WithOne("MetaData")
                         .HasForeignKey("StoryGPTProducer.Models.MetaData", "StoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Story");
                 });
 
             modelBuilder.Entity("StoryGPTProducer.Models.Story", b =>
