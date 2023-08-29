@@ -1,3 +1,5 @@
+using StoryGPTWebAPI.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,39 +7,47 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<DatabaseContext>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
+
+app.Logger.LogInformation("StoryGPT Web API starting up");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.Logger.LogInformation("In Development environment");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    app.Logger.LogInformation("In Production environment");
+}
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 
-var summaries = new[]
+app.MapGet("/api/story/random", (DatabaseContext context) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    return context.Stories.AsEnumerable().OrderBy(s => new Random().Next()).Take(1).Select(s => new StoryContext(s.GeneratedId, s.StoryText));
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/api/story/random3", (DatabaseContext context) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    return context.Stories.AsEnumerable().OrderBy(s => new Random().Next()).Take(3).Select(s => new StoryContext(s.GeneratedId, s.StoryText)).ToArray();
+});
 
 app.Run();
 
-record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+record StoryContext(long Id, string Context);
