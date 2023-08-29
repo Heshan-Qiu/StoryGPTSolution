@@ -1,7 +1,9 @@
+appsettings.json
+appsettings.Development.json
+
 .vscode/
 .config/dotnet-tools.json
-appsettings.Development.json
-appsettings.json
+
 Properties/serviceDependencies.json
 Properties/serviceDependencies.storygpt-api - Zip Deploy.json
 Properties/ServiceDependencies/storygpt-api - Zip Deploy/apis1.arm.json
