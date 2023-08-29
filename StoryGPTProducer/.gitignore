@@ -1,3 +1,8 @@
 .vscode/
 appsettings.json
 appsettings.Development.json
+.config/dotnet-tools.json
+Properties/serviceDependencies.json
+Properties/serviceDependencies.storygpt-producer - Zip Deploy.json
+Properties/ServiceDependencies/storygpt-producer - Zip Deploy/apis1.arm.json
+Properties/ServiceDependencies/storygpt-producer - Zip Deploy/profile.arm.json

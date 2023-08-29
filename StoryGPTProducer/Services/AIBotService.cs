@@ -45,11 +45,11 @@ namespace StoryGPTProducer.Services
 
         private async Task<string> GenerateContext()
         {
-            _logger.LogDebug($"Generating context with API key: {_apiKey}, model: {_model}, prompt: {_prompt} ...");
+            _logger.LogInformation($"Generating context with API key: {_apiKey}, model: {_model}, prompt: {_prompt} ...");
             var client = new OpenAIClient(_apiKey);
             var response = await client.GetCompletionsAsync(_model, _prompt);
             var context = string.Concat(response.Value.Choices.Select(c => c.Text));
-            _logger.LogDebug($"Return context: {context}");
+            _logger.LogInformation($"Return context: {context}");
             return context;
         }
 
@@ -73,10 +73,10 @@ namespace StoryGPTProducer.Services
 
         private async Task SaveStory(Story story)
         {
-            _logger.LogDebug($"Saving story: {JsonSerializer.Serialize(story)} ...");
+            _logger.LogInformation($"Saving story: {JsonSerializer.Serialize(story)} ...");
             await _context.Stories.AddAsync(story);
             await _context.SaveChangesAsync();
-            _logger.LogDebug($"Saving story complete.");
+            _logger.LogInformation($"Saving story complete.");
         }
     }
 }
