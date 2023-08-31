@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import StoryViewer from "./components/StoryViewer";
+import { StyleSheet, Text, View } from "react-native";
+import StorySwiper from "./components/StorySwiper";
 
 export default function App() {
   return (
@@ -17,7 +17,9 @@ export default function App() {
           StoryGPT
         </Text>
       </View>
-      <StoryViewer />
+      <View style={{ flex: 20 }}>
+        <StorySwiper />
+      </View>
       <View style={{ flex: 1, alignItems: "center" }}>
         <Text>Built by Heshan (George) Qiu</Text>
       </View>
@@ -29,6 +31,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#fff",
   },
 });
