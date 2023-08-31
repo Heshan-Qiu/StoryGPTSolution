@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using StoryGPTWebAPI.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,9 +39,27 @@ else
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
-app.MapGet("/api/story/random", (DatabaseContext context) =>
+app.MapGet("/api/story/random", (DatabaseContext dbContext, HttpContext httpContext) =>
 {
-    return context.Stories.AsEnumerable().OrderBy(s => new Random().Next()).Take(1).Select(s => new StoryContext(s.GeneratedId, s.StoryText));
+    var queryParameters = httpContext.Request.Query;
+    if (queryParameters.ContainsKey("ids"))
+    {
+        var ids = queryParameters["ids"].ToString().Split(',');
+        app.Logger.LogInformation("Querying for specific IDs:");
+        app.Logger.LogInformation(queryParameters["ids"].ToString());
+        foreach (var id in ids)
+        {
+            app.Logger.LogInformation(id);
+        }
+        return dbContext.Stories.AsEnumerable().Where(s => !ids.Contains(s.GeneratedId.ToString()))
+                        .OrderBy(s => new Random().Next()).Take(1).Select(
+                            s => new StoryContext(s.GeneratedId, s.StoryText));
+    }
+    else
+    {
+        return dbContext.Stories.AsEnumerable().OrderBy(s => new Random().Next()).Take(1)
+                        .Select(s => new StoryContext(s.GeneratedId, s.StoryText));
+    }
 });
 
 app.MapGet("/api/story/random3", (DatabaseContext context) =>

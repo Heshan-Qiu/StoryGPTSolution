@@ -1,6 +1,5 @@
+import { StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, PanResponder } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import StoryViewer from "./components/StoryViewer";
 
 export default function App() {
@@ -18,11 +17,7 @@ export default function App() {
           StoryGPT
         </Text>
       </View>
-      <NavigationContainer>
-        <View style={{ flex: 20, padding: 10 }}>
-          <StoryViewer />
-        </View>
-      </NavigationContainer>
+      <StoryViewer />
       <View style={{ flex: 1, alignItems: "center" }}>
         <Text>Built by Heshan (George) Qiu</Text>
       </View>
