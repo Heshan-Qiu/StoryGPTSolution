@@ -14,7 +14,7 @@ export default function App() {
         }}
       >
         <Text style={{ fontStyle: "italic", fontWeight: "bold" }}>
-          StoryGPT
+          storyGPT
         </Text>
       </View>
       <View style={{ flex: 20 }}>
