@@ -45,9 +45,9 @@ const StorySwiper = () => {
       .then((response) => {
         const newStory = response.data[0];
         if (stories.some((story) => story.id === newStory.id)) {
-          console.log("duplicate story, id: " + newStory.id);
+          console.log("duplicate story: ", newStory);
         } else {
-          console.log("new story, id: " + newStory.id);
+          console.log("new story: ", newStory);
           setStories((prevStories) => [...prevStories, newStory]);
         }
       })
