@@ -85,7 +85,7 @@ const StorySwiper = () => {
               source={assets[Math.floor(Math.random() * assets.length)]}
               style={styles.image}
             />
-            <Text style={styles.text}>{story.context}</Text>
+            <Text style={styles.text}>{story.content}</Text>
           </View>
         ))}
       </ScrollView>
