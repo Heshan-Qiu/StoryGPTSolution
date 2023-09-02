@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import Ratio from "react-bootstrap/Ratio";
+
+import { Container } from "react-bootstrap";
+import StatsTabs from "./components/StatsTabs";
 
 function App() {
   return (
-    <div className="App">
+    <Container className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>storyGPT</h1>
+        <p>Generate stories with GPT-3</p>
+        <div style={{ width: 660, height: "auto" }}>
+          <Ratio aspectRatio="16x9">
+            <embed
+              type="image/svg+xml"
+              src="https://youtube.com/embed/niCQ4Y2ru6g"
+              title="storyGPT video"
+            />
+          </Ratio>
+        </div>
       </header>
-    </div>
+      <StatsTabs />
+    </Container>
   );
 }
 
