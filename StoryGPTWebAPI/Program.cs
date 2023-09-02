@@ -53,20 +53,29 @@ app.MapGet("/api/story/random", (DatabaseContext dbContext, HttpContext httpCont
         }
         return dbContext.Stories.AsEnumerable().Where(s => !ids.Contains(s.GeneratedId.ToString()))
                         .OrderBy(s => new Random().Next()).Take(1).Select(
-                            s => new StoryContext(s.GeneratedId, s.StoryText));
+                            s => new StoryContent(s.GeneratedId, s.StoryText));
     }
     else
     {
         return dbContext.Stories.AsEnumerable().OrderBy(s => new Random().Next()).Take(1)
-                        .Select(s => new StoryContext(s.GeneratedId, s.StoryText));
+                        .Select(s => new StoryContent(s.GeneratedId, s.StoryText));
     }
 });
 
 app.MapGet("/api/story/random3", (DatabaseContext context) =>
 {
-    return context.Stories.AsEnumerable().OrderBy(s => new Random().Next()).Take(3).Select(s => new StoryContext(s.GeneratedId, s.StoryText)).ToArray();
+    return context.Stories.AsEnumerable().OrderBy(s => new Random().Next()).Take(3).Select(s => new StoryContent(s.GeneratedId, s.StoryText)).ToArray();
+});
+
+app.MapGet("/api/story/last10", (DatabaseContext context) =>
+{
+    return context.Stories.Include(s => s.MetaData).OrderByDescending(s => s.Id).Take(10)
+        .Select(s => new StoryContent(s.StoryText, s.MetaData.DateCreated)).ToArray();
 });
 
 app.Run();
 
-record StoryContext(long Id, string Context);
+app.Run();
+
+record StoryContent(long Id, string Content);
+record StoryContentAndDateCreated(long Id, string Content, DateTime DateCreated);
