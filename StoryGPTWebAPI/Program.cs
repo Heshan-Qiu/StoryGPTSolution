@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StoryGPTWebAPI.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -70,10 +71,9 @@ app.MapGet("/api/story/random3", (DatabaseContext context) =>
 app.MapGet("/api/story/last10", (DatabaseContext context) =>
 {
     return context.Stories.Include(s => s.MetaData).OrderByDescending(s => s.Id).Take(10)
-        .Select(s => new StoryContent(s.StoryText, s.MetaData.DateCreated)).ToArray();
+                          .Select(s => new StoryContentAndDateCreated(s.GeneratedId, s.StoryText,
+                          s.MetaData.DateCreated)).ToArray();
 });
-
-app.Run();
 
 app.Run();
 
