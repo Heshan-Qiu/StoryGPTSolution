@@ -44,9 +44,9 @@ app.UseCors("AllowAll");
 app.MapGet("/", (DatabaseContext context) =>
 {
     return context.Stories.Include(s => s.MetaData).OrderByDescending(s => s.Id).Take(10)
-        .Select(s => new StoryContext(s.StoryText, s.MetaData.DateCreated)).ToArray();
+        .Select(s => new StoryContent(s.StoryText, s.MetaData.DateCreated)).ToArray();
 });
 
 app.Run();
 
-record StoryContext(string Context, DateTime DateCreated);
+record StoryContent(string Content, DateTime DateCreated);
