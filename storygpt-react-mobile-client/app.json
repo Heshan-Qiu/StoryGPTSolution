@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "storyGPT",
-    "slug": "AI-generated-funny-story",
+    "slug": "ai-generated-funny-story",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,22 +11,26 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "pro.heshan.storygpt"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "pro.heshan.storygpt"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "49d8cda6-f8d0-4b54-a1a1-d7413c39dec7"
+        "projectId": "1c41e39c-7003-44a0-9898-f063a8975367"
       }
     },
     "owner": "heshan_chiu",
@@ -34,7 +38,7 @@
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/49d8cda6-f8d0-4b54-a1a1-d7413c39dec7"
+      "url": "https://u.expo.dev/1c41e39c-7003-44a0-9898-f063a8975367"
     }
   }
 }
