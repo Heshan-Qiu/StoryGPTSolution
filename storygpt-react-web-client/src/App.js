@@ -4,13 +4,18 @@ import Ratio from "react-bootstrap/Ratio";
 
 import { Container } from "react-bootstrap";
 import StatsTabs from "./components/StatsTabs";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.title = "storyGPT - AI Funny Stories";
+  }, []);
+
   return (
     <Container className="App">
       <header className="App-header">
         <h1>storyGPT</h1>
-        <p>Generate stories with GPT-3</p>
+        <p>AI generated funny stories with GPT-3</p>
         <div style={{ width: 660, height: "auto" }}>
           <Ratio aspectRatio="16x9">
             <embed
