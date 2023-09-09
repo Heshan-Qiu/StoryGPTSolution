@@ -5,16 +5,16 @@ namespace StoryGPTProducer.Helpers
 {
     public class DatabaseContext : DbContext
     {
-        protected readonly IConfiguration Configuration;
+        private readonly IConfiguration _configuration;
 
         public DatabaseContext(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
             optionsBuilder.UseNpgsql(connectionString);
         }
 
